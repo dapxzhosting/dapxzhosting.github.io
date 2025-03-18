@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loading...</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: url('https://files.catbox.moe/fs2mio.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: white;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        .container {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+        }
+
+        .rocket {
+            width: 80px;
+            position: absolute;
+            bottom: -100px;
+            animation: launch 5s linear forwards;
+        }
+
+        @keyframes launch {
+            0% { bottom: -100px; }
+            100% { bottom: 100vh; }
+        }
+
+        .loading-text {
+            position: absolute;
+            bottom: 50px;
+            font-size: 20px;
+            background: rgba(0, 0, 0, 0.6);
+            padding: 10px 20px;
+            border-radius: 10px;
+        }
+
+        .percentage {
+            font-size: 24px;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        /* Efek Bintang */
+        .stars {
+            position: fixed;
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+            z-index: -1;
+        }
+
+        .star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: yellow;
+            opacity: 0.8;
+            animation: twinkle 1.5s infinite alternate;
+        }
+
+        @keyframes twinkle {
+            0% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="stars"></div> <!-- Kontainer untuk bintang -->
+
+    <div class="container">
+        <img src="https://files.catbox.moe/2h3skj.png" class="rocket" alt="Roket">
+        <div class="loading-text">
+            Loading... <span class="percentage">0%</span>
+        </div>
+    </div>
+
+    <script>
+        // Membuat efek bintang secara acak
+        function createStars(num) {
+            const starContainer = document.querySelector('.stars');
+            for (let i = 0; i < num; i++) {
+                let star = document.createElement('div');
+                star.classList.add('star');
+                let x = Math.random() * window.innerWidth;
+                let y = Math.random() * window.innerHeight;
+                let duration = Math.random() * 1.5 + 0.5;
+                star.style.left = x + 'px';
+                star.style.top = y + 'px';
+                star.style.animationDuration = duration + 's';
+                starContainer.appendChild(star);
+            }
+        }
+
+        createStars(100); // Menambahkan 100 bintang ke latar belakang
+
+        // Animasi loading persentase
+        let percentage = 0;
+        let interval = setInterval(() => {
+            percentage += 1;
+            document.querySelector('.percentage').textContent = percentage + "%";
+
+            if (percentage >= 100) {
+                clearInterval(interval);
+                setTimeout(() => {
+                    window.location.href = "https://dapagans.biz.id"; // Ganti dengan URL tujuan Anda
+                }, 500);
+            }
+        }, 50);
+    </script>
+
+</body>
+</html>
